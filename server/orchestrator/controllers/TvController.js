@@ -58,7 +58,7 @@ class TvController {
         try{
             const updateTv = req.body;
             const { data } = await axios.put(`${baseURL}/${req.params.id}`, updateTv);
-            redis.hset("tvSeriesHash", req.params.id, JSON.stringify(data));
+            redis.hset("tvSeriesHash", req.params.id, JSON.stringify(data.tv_series));
             redis.del("tvSeries");
             res.status(200).json(data);
         }catch(err){

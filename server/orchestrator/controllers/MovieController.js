@@ -58,7 +58,7 @@ class MovieController {
         try{
             const updateMovie = req.body;
             const { data } = await axios.put(`${baseURL}/${req.params.id}`, updateMovie);
-            redis.hset("moviesHash", req.params.id, JSON.stringify(data));
+            redis.hset("moviesHash", req.params.id, JSON.stringify(data.movie));
             redis.del("movies")
             res.status(200).json(data);
         }catch(err){
