@@ -1,17 +1,31 @@
 if(process.env.NODE_ENV == 'development'){
     require('dotenv').config();
 }
+const { ApolloServer, gql, makeExecutableSchema } = require('apollo-server');
+const movieSchema = require('./schema/movieSchema');
+const tvseriesSchema = require('./schema/tvseriesSchema');
 
-const express = require('express');
-const app = express();
-const PORT = process.env.PORT;
-const cors = require('cors');
-const router = require('./routes');
+const typeDefs = gql`
+    type Query
+    type Mutation
+`
 
-app.use(cors());
-app.use(express.json());
-app.use(router);
+const schema = makeExecutableSchema({
+    typeDefs: [
+        typeDefs,
+        movieSchema.typeDefs,
+        tvseriesSchema.typeDefs
+    ],
+    resolvers: [
+        movieSchema.resolvers,
+        tvseriesSchema.resolvers
+    ]
+})
 
-app.listen(PORT, () => {
-    console.log(`Orchertrator running at port ${PORT}`);
+const server = new ApolloServer({
+    schema
+})
+
+server.listen().then(({ url }) => {
+    console.log(`orchestrator graphql running at ${url}`);
 })

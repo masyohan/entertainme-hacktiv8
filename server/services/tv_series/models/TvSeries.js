@@ -13,7 +13,7 @@ class TvModel {
         return TvSeries.insertOne(tvSeries);
     }
     static update(id, updateTvSeries){
-        return TvSeries.updateOne({ _id: ObjectId(id) },{ $set: updateTvSeries});
+        return TvSeries.findOneAndUpdate({ _id: ObjectId(id) },{ $set: updateTvSeries}, {returnOriginal: false});
     }
     static delete(id){
         return TvSeries.deleteOne({ _id: ObjectId(id) });

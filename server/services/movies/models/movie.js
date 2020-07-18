@@ -13,7 +13,7 @@ class MovieModel {
         return Movie.insertOne(movie);
     }
     static update(id, updateMovie){
-        return Movie.updateOne({ _id: ObjectId(id) },{ $set: updateMovie});
+        return Movie.findOneAndUpdate({ _id: ObjectId(id) },{ $set: updateMovie}, {returnOriginal: false});
     }
     static delete(id){
         return Movie.deleteOne({ _id: ObjectId(id) });
