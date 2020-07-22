@@ -13,4 +13,17 @@ const GET_TV_SERIES = gql`
   }
 `;
 
-export { GET_TV_SERIES };
+const GET_TV_BY_ID = gql`
+  query($id: ID) {
+    tv(id: $id) {
+      _id
+      title
+      overview
+      poster_path
+      popularity
+      tags
+    }
+  }
+`;
+
+export { GET_TV_SERIES, GET_TV_BY_ID };
